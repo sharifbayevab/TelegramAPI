@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://user:password@db/dbname
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass123
+      - POSTGRES_DB=dbname
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
